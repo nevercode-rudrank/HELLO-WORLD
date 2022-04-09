@@ -21,6 +21,7 @@ workflows:
  
         # Run Simulator
         xcrun simctl boot $SIMULATOR_UDID
+      - sleep 15
       - name: TESTING
         script: |
           xcode-project run-tests \
