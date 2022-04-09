@@ -12,10 +12,19 @@ workflows:
     environment:
       <<: *hello_environment_versions
     scripts:
+      - |
+        #! /bin/zsh  
+        SIMULATOR_NAME="my-sim"
+  
+        # Create Simulator
+        SIMULATOR_UDID=`xcrun simctl create "$SIMULATOR_NAME" com.apple.CoreSimulator.SimDeviceType.iPhone-13 com.apple.CoreSimulator.SimRuntime.iOS-15-4`
+ 
+        # Run Simulator
+        xcrun simctl boot $SIMULATOR_UDID
       - name: TESTING
         script: |
           xcode-project run-tests \
             --project "$XCODE_PROJECT" \
             --scheme "$XCODE_iOS_SCHEME" \
-            --device "iPhone 12"
+            --device "iPhone 13"
         test_report: build/ios/test/*.xml
