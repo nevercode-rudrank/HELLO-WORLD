@@ -8,7 +8,7 @@ definitions:
 workflows:
   ios-testing-workflow:
     name: iOS Testing Workflow
-    instance_type: mac_mini_m1
+    instance_type: mac_mini
     environment:
       <<: *hello_environment_versions
     scripts:
