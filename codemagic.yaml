@@ -6,25 +6,15 @@ definitions:
       XCODE_iOS_SCHEME: "HELLO WORLD"
 
 workflows:
-  ios-testing-workflow:
-    name: iOS Testing Workflow
-    instance_type: mac_mini
+  ios-m1-testing-workflow:
+    name: iOS M1 Testing Workflow
+    instance_type: mac_mini_m1
     environment:
       <<: *hello_environment_versions
     scripts:
-      - |
-        #! /bin/zsh  
-        SIMULATOR_NAME="my-sim"
-  
-        # Create Simulator
-        SIMULATOR_UDID=`xcrun simctl create "$SIMULATOR_NAME" com.apple.CoreSimulator.SimDeviceType.iPhone-13 com.apple.CoreSimulator.SimRuntime.iOS-15-4`
- 
-        # Run Simulator
-        xcrun simctl boot $SIMULATOR_UDID
-      - sleep 15
       - name: TESTING
         script: |
-          xcode-project run-tests \
+          arch -arm64 xcode-project run-tests \
             --project "$XCODE_PROJECT" \
             --scheme "$XCODE_iOS_SCHEME" \
             --device "iPhone 13"
